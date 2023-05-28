@@ -10,9 +10,11 @@ type UseSendMessageMutationOptions = UseMutationOptions<
   TVariables
 >;
 
+export const USE_SEND_MESSAGE_MUTATION_KEY = 'USE_SEND_MESSAGE_MUTATION_KEY';
+
 const useSendMessageMutation = (options?: UseSendMessageMutationOptions) =>
   useMutation(
-    'useCheckAuthMutation',
+    USE_SEND_MESSAGE_MUTATION_KEY,
     (sendMessageData) => greenApiService.sendMessage(sendMessageData),
     options,
   );

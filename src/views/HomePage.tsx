@@ -19,7 +19,9 @@ export default function HomePage() {
   } = useForm<PhoneFormValues>();
 
   const onSubmit: SubmitHandler<PhoneFormValues> = (formValues) => {
-    navigate(routeLocations.getChatPageLocation(formValues.phoneNumber));
+    navigate(
+      routeLocations.getChatPageLocation(formValues.phoneNumber + '@c.us'),
+    );
   };
 
   return (

@@ -7,9 +7,11 @@ type TData = Awaited<
 
 type UseCheckAuthMutationOptions = UseMutationOptions<TData>;
 
+export const USE_CHECK_AUTH_MUTATION_KEY = 'USE_CHECK_AUTH_MUTATION_KEY';
+
 const useCheckAuthMutation = (options?: UseCheckAuthMutationOptions) =>
   useMutation(
-    'useCheckAuthMutation',
+    USE_CHECK_AUTH_MUTATION_KEY,
     () => greenApiService.isAuthorizedAccount(),
     options,
   );

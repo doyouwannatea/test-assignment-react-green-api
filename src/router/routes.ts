@@ -6,6 +6,6 @@ export const enum RouteName {
 
 export const routeLocations = {
   homePageLocation: '/',
-  authPageLocation: '/auth',
-  getChatPageLocation: (chatId: string): string => `/chat/${chatId}`,
+  authPageLocation: '/auth/',
+  getChatPageLocation: (chatId: string): string => `/chat/${chatId}/`,
 };
