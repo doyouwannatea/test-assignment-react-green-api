@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routeLocations } from '@/router/routes';
-import greenApiService from '@/services/green-api.service';
+import { useAuthContext } from '@/context/auth-context/AuthContext';
 
 export const useWatchAuth = () => {
   const navigate = useNavigate();
-  const authData = greenApiService.getAuthData();
+  const { data: authData } = useAuthContext();
 
   useEffect(() => {
     if (!authData) navigate(routeLocations.authPageLocation);

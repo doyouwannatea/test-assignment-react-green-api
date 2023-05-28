@@ -1,11 +1,11 @@
-import BaseButton from '@/components/BaseButton';
-import BaseInput from '@/components/BaseInput';
-import useCheckAuthMutation from '@/hooks/useCheckAuthMutation';
-import { routeLocations } from '@/router/routes';
-import greenApiService from '@/services/green-api.service';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import BaseButton from '@/components/BaseButton';
+import BaseInput from '@/components/BaseInput';
+import { useAuthContext } from '@/context/auth-context/AuthContext';
+import useCheckAuthMutation from '@/hooks/useCheckAuthMutation';
+import { routeLocations } from '@/router/routes';
 
 type AuthFormValues = {
   idInstance: string;
@@ -13,6 +13,7 @@ type AuthFormValues = {
 };
 
 export default function AuthPage() {
+  const authContext = useAuthContext();
   const navigate = useNavigate();
   const {
     register,
@@ -34,7 +35,7 @@ export default function AuthPage() {
   });
 
   const onSubmit: SubmitHandler<AuthFormValues> = async (formValues) => {
-    greenApiService.setAuthData({
+    authContext.setAuthData({
       apiTokenInstance: formValues.apiTokenInstance,
       idInstance: formValues.idInstance,
     });
@@ -42,7 +43,7 @@ export default function AuthPage() {
   };
 
   function onError(error?: unknown) {
-    greenApiService.setAuthData(undefined);
+    authContext.setAuthData(undefined);
     setError(
       error
         ? String(error)

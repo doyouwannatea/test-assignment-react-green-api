@@ -1,11 +1,14 @@
 import BaseLayout from './components/BaseLayout';
+import AuthContextProvider from './context/auth-context/AuthContextProvider';
 import AppRouter from './router/AppRouter';
 
 function App() {
   return (
-    <BaseLayout>
-      <AppRouter />
-    </BaseLayout>
+    <AuthContextProvider>
+      <BaseLayout>
+        <AppRouter />
+      </BaseLayout>
+    </AuthContextProvider>
   );
 }
 
