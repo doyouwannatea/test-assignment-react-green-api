@@ -13,6 +13,10 @@ const kyInstance = ky.create({ prefixUrl: baseUrl });
 export class GreenApiService {
   private authData?: AuthData;
 
+  getAuthData(): AuthData | undefined {
+    return this.authData;
+  }
+
   setAuthData(authData?: AuthData) {
     this.authData = authData;
   }

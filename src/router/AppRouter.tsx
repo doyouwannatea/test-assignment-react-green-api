@@ -1,18 +1,16 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
+import { RouteName } from './routes';
+
 import AuthPage from '@/views/AuthPage';
 import ChatPage from '@/views/ChatPage';
-
-export const enum RouteName {
-  HomePage = '/',
-  AuthPage = '/',
-  ChatPage = '/chat',
-}
+import HomePage from '@/views/HomePage';
 
 export default function AppRouter() {
   return (
     <Routes>
-      <Route index element={<AuthPage />} />
-      <Route path='chat' element={<ChatPage />} />
+      <Route index path={RouteName.AuthPage} element={<AuthPage />} />
+      <Route path={RouteName.HomePage} element={<HomePage />} />
+      <Route path={RouteName.ChatPage} element={<ChatPage />} />
       <Route path='*' element={<Navigate to='/' replace />} />
     </Routes>
   );

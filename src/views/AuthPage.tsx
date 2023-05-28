@@ -1,37 +1,39 @@
 import BaseButton from '@/components/BaseButton';
 import BaseInput from '@/components/BaseInput';
 import useCheckAuthMutation from '@/hooks/useCheckAuthMutation';
+import { routeLocations } from '@/router/routes';
 import greenApiService from '@/services/green-api.service';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 type AuthFormValues = {
   idInstance: string;
   apiTokenInstance: string;
-  phoneNumber: string;
 };
 
 export default function AuthPage() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<AuthFormValues>();
 
+  const [error, setError] = useState<string | undefined>(undefined);
+
   const { mutate, isLoading } = useCheckAuthMutation({
     onSuccess: (isChecked) => {
       if (isChecked) {
-        console.log('редирект на страницу чата');
+        navigate(routeLocations.homePageLocation);
         return;
       }
-      console.log('не авторизован');
+      onError();
     },
-    onError: (error) => {
-      console.error(error);
-    },
+    onError,
   });
 
   const onSubmit: SubmitHandler<AuthFormValues> = async (formValues) => {
-    console.log(formValues);
     greenApiService.setAuthData({
       apiTokenInstance: formValues.apiTokenInstance,
       idInstance: formValues.idInstance,
@@ -39,44 +41,39 @@ export default function AuthPage() {
     mutate();
   };
 
+  function onError(error?: unknown) {
+    greenApiService.setAuthData(undefined);
+    setError(
+      error
+        ? String(error)
+        : 'Пользователь с введёнными авторизационными данными не найден',
+    );
+  }
+
   return (
     <div>
       <h2>Добро пожаловать!</h2>
       <p>Пожалуйста, введи то да сё</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <BaseInput
-          {...register('idInstance', { required: true, disabled: isLoading })}
+          {...register('idInstance', { required: true })}
           type='text'
           placeholder='введите свой idInstance'
           label='idInstance *'
+          disabled={isLoading}
         />
         {errors.idInstance && <p>Введите idInstance</p>}
         <BaseInput
           {...register('apiTokenInstance', {
             required: true,
-            disabled: isLoading,
           })}
           type='text'
           placeholder='введите свой apiTokenInstance'
           label='apiTokenInstance *'
+          disabled={isLoading}
         />
         {errors.apiTokenInstance && <p>Введите apiTokenInstance</p>}
-        <BaseInput
-          {...register('phoneNumber', {
-            required: true,
-            disabled: isLoading,
-            pattern: {
-              value: /^\d{11}$/,
-              message: 'Номер телефона должен быть в формате: 00000000000',
-            },
-          })}
-          type='text'
-          placeholder='введите номер телефона собеседника'
-          label='Номер телефона *'
-        />
-        {errors.phoneNumber && (
-          <p>{errors.phoneNumber.message || 'Введите номер телефона'}</p>
-        )}
+        {error && error}
         <BaseButton type='submit' disabled={isLoading}>
           авторизоваться
         </BaseButton>
