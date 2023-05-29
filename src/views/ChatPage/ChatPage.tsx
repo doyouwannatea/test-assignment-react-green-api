@@ -23,7 +23,6 @@ export default function ChatPage() {
   const {
     data: notificationList,
     isFetching: isChatNotificationsFetching,
-    isLoading: isChatNotificationsLoading,
     refetch,
   } = useGetAllNotificationsQuery({
     enabled: Boolean(chatId),
@@ -49,7 +48,6 @@ export default function ChatPage() {
     resetForm();
   };
 
-  if (isChatNotificationsLoading) return <p>загрузка сообщений</p>;
   if (isError) return <p>Ошибка: {String(error)}</p>;
   if (!chatId) return <p>Выберите контакт</p>;
 
@@ -68,22 +66,28 @@ export default function ChatPage() {
           Новые сообщения не найдены
         </p>
       )}
-      {isChatNotificationsFetching && (
-        <p className={styles.loading}>Загрузка сообщений...</p>
-      )}
       <form className={styles.form} onSubmit={handleSubmit(onSendMessage)}>
         <BaseInput
           {...register('message', { required: true })}
-          placeholder='Введите сообщение'
-          disabled={isSendMessageLoading}
+          placeholder={
+            isChatNotificationsFetching
+              ? 'Загрузка сообщений...'
+              : isSendMessageLoading
+              ? 'Отправка сообщения...'
+              : 'Введите сообщение'
+          }
+          disabled={isSendMessageLoading || isChatNotificationsFetching}
         />
         <div className={styles['controls-wrapper']}>
-          <BaseButton type='submit' disabled={isSendMessageLoading}>
+          <BaseButton
+            type='submit'
+            disabled={isSendMessageLoading || isChatNotificationsFetching}
+          >
             отправить сообщение
           </BaseButton>
           <BaseButton
             onClick={() => refetch()}
-            disabled={isSendMessageLoading}
+            disabled={isSendMessageLoading || isChatNotificationsFetching}
             type='button'
           >
             обновить сообщения
