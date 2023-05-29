@@ -1,0 +1,17 @@
+.message {
+  padding: 0.5625rem;
+  color: var(--app-primary-strong);
+  background: var(--app-green);
+  border-radius: 0.4375rem;
+  width: fit-content;
+  display: block;
+  word-break: break-word;
+}
+
+.received-message {
+  background: var(--app-secondary);
+}
+
+.outgoing-message {
+  margin-left: auto;
+}
