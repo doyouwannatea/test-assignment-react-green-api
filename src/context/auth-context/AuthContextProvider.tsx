@@ -6,6 +6,7 @@ import {
   getAuthDataFromLocalStorage,
   setAuthDataToLocalStorage,
 } from '@/utils/auth-local-storage';
+import { setContactListToLocalStorage } from '@/utils/contact-list-local-storage';
 
 const localStorageAuthData = getAuthDataFromLocalStorage();
 
@@ -24,6 +25,7 @@ export default function AuthContextProvider({ children }: PropsWithChildren) {
 
   function logout() {
     setAuthData(undefined);
+    setContactListToLocalStorage(undefined);
   }
 
   return (
