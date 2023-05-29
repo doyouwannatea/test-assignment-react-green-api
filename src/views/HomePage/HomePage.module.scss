@@ -4,7 +4,8 @@
 }
 
 .nav-panel {
-  min-width: 400px;
+  min-width: 25rem;
+  max-width: 25rem;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   background: var(--app-background);
   padding: 0.7rem;
