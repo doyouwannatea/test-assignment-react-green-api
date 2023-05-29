@@ -1,0 +1,40 @@
+.page-wrapper {
+  width: 100%;
+  padding-top: 0.7rem;
+}
+
+.controls-wrapper {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.3rem;
+}
+
+.messages-not-found {
+  text-align: center;
+  margin: 0.5em 0;
+  font-size: 1.5rem;
+}
+
+.loading {
+  text-align: center;
+  margin: 0.5em 0;
+}
+
+.message {
+  padding: 0.5625rem;
+  color: var(--app-primary-strong);
+  background: var(--app-green);
+  border-radius: 0.4375rem;
+  width: fit-content;
+  word-break: break-word;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.form {
+  margin-top: 1rem;
+}

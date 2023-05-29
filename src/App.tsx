@@ -1,4 +1,4 @@
-import BaseLayout from './components/BaseLayout';
+import BaseLayout from './components/BaseLayout/BaseLayout';
 import AuthContextProvider from './context/auth-context/AuthContextProvider';
 import AppRouter from './router/AppRouter';
 

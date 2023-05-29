@@ -1,0 +1,13 @@
+.input {
+  width: 100%;
+  padding: 0.75rem 0.8rem;
+  font-size: 1.125rem;
+  color: var(--app-gray-2);
+  background-color: var(--app-secondary);
+  border-radius: 0.3125rem;
+  transition: border 100ms ease;
+}
+
+.label {
+  margin-bottom: 0.3em;
+}

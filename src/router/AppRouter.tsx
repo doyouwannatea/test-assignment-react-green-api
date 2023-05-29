@@ -9,8 +9,10 @@ export default function AppRouter() {
   return (
     <Routes>
       <Route index path={RouteName.AuthPage} element={<AuthPage />} />
-      <Route path={RouteName.HomePage} element={<HomePage />} />
-      <Route path={RouteName.ChatPage} element={<ChatPage />} />
+      <Route path={RouteName.HomePage} element={<HomePage />}>
+        <Route index element={<ChatPage />} />
+        <Route path={RouteName.ChatPage} element={<ChatPage />} />
+      </Route>
       <Route path='*' element={<Navigate to='/' replace />} />
     </Routes>
   );

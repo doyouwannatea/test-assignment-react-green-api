@@ -1,0 +1,13 @@
+@use './reset.scss';
+@use './fonts.scss';
+@use './variables.scss';
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background: var(--app-background);
+  font-family: 'Montserrat', sans-serif;
+  color: var(--app-primary-strong);
+}

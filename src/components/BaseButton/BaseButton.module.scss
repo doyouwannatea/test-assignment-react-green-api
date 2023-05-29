@@ -1,0 +1,37 @@
+.button {
+  --background-color: var(--app-green);
+  --disabled-color: var(--gray-color);
+  --hover-color: var(--app-green-2);
+  --active-color: var(--app-green-3);
+
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--app-primary-strong);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0.3125rem;
+  transition: background-color 20ms ease, color 20ms ease;
+
+  background-color: var(--background-color);
+
+  &:hover {
+    background-color: var(--hover-color);
+  }
+
+  &:active {
+    background-color: var(--active-color);
+  }
+
+  &:disabled {
+    background-color: var(--app-gray);
+    cursor: default;
+  }
+}

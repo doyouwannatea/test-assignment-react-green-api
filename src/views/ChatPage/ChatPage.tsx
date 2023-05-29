@@ -3,23 +3,13 @@ import { useParams } from 'react-router-dom';
 import BaseButton from '@/components/BaseButton';
 import BaseInput from '@/components/BaseInput';
 import useSendMessageMutation from '@/hooks/useSendMessageMutation';
-import { useWatchAuth } from '@/hooks/useWatchAuth';
-import { useWatchChatId } from '@/hooks/useWatchChatId';
 import useGetAllNotificationsQuery from '@/hooks/useGetAllNotificationsQuery';
-import { Notification } from '@/models/green-api';
+import styles from './ChatPage.module.scss';
+import { filterOnlyCurrentChatNotifications } from '@/utils/notification';
 
 type ChatFormValues = { message: string };
 
-const filterOnlyCurrentChatNotifications =
-  (chatId?: string) =>
-  (notification: Notification): boolean =>
-    (notification.body.typeWebhook === 'incomingMessageReceived' ||
-      notification.body.typeWebhook === 'outgoingMessageReceived') &&
-    notification.body.senderData?.chatId === chatId;
-
 export default function ChatPage() {
-  useWatchAuth();
-  useWatchChatId();
   const { chatId } = useParams();
   const { register, handleSubmit } = useForm<ChatFormValues>();
 
@@ -38,7 +28,7 @@ export default function ChatPage() {
       console.log('сообщение отправлено!');
     },
     onError: (error) => {
-      console.log('ошибка отправки сообщения!');
+      console.error(`ошибка отправки сообщения: ${error}`);
     },
   });
 
@@ -48,30 +38,41 @@ export default function ChatPage() {
   };
 
   if (isChatNotificationsLoading) return <p>загрузка сообщений</p>;
+  if (!chatId) return <div>Выберите контакт</div>;
 
   return (
-    <div>
-      <ul>
-        {notificationList?.map((notification) => (
-          <li key={notification.receiptId}>
-            {notification.body.messageData?.textMessageData?.textMessage}
-          </li>
-        ))}
-      </ul>
-      {isChatNotificationsFetching && '...'}
-      <form onSubmit={handleSubmit(onSendMessage)}>
+    <section className={styles['page-wrapper']}>
+      {notificationList?.length ? (
+        <ul className={styles['message-list']}>
+          {notificationList?.map((notification) => (
+            <li key={notification.receiptId} className={styles.message}>
+              {notification.body.messageData?.textMessageData?.textMessage}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className={styles['messages-not-found']}>
+          Новые сообщения не найдены
+        </p>
+      )}
+      {isChatNotificationsFetching && (
+        <p className={styles.loading}>Загрузка сообщений...</p>
+      )}
+      <form className={styles.form} onSubmit={handleSubmit(onSendMessage)}>
         <BaseInput
           {...register('message', { required: true })}
           placeholder='Введите сообщение'
           disabled={isSendMessageLoading}
         />
-        <BaseButton type='submit' disabled={isSendMessageLoading}>
-          отправить сообщение
-        </BaseButton>
-        <BaseButton onClick={() => refetch()} disabled={isSendMessageLoading}>
-          обновить сообщения
-        </BaseButton>
+        <div className={styles['controls-wrapper']}>
+          <BaseButton type='submit' disabled={isSendMessageLoading}>
+            отправить сообщение
+          </BaseButton>
+          <BaseButton onClick={() => refetch()} disabled={isSendMessageLoading}>
+            обновить сообщения
+          </BaseButton>
+        </div>
       </form>
-    </div>
+    </section>
   );
 }

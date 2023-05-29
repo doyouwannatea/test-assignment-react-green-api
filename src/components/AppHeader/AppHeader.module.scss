@@ -1,0 +1,12 @@
+.header {
+  padding: calc(var(--app-side-padding) * 2) var(--app-side-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--app-header-background);
+}
+
+.logo {
+  color: var(--app-logo-color);
+  font-size: 1.5rem;
+}

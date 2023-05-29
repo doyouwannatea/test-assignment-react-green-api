@@ -6,6 +6,7 @@ import BaseInput from '@/components/BaseInput';
 import { useAuthContext } from '@/context/auth-context/AuthContext';
 import useCheckAuthMutation from '@/hooks/useCheckAuthMutation';
 import { routeLocations } from '@/router/routes';
+import styles from './AuthPage.module.scss';
 
 type AuthFormValues = {
   idInstance: string;
@@ -54,27 +55,31 @@ export default function AuthPage() {
   return (
     <div>
       <h2>Добро пожаловать!</h2>
-      <p>Пожалуйста, введи то да сё</p>
+      <p className={styles.subtitle}>Пожалуйста, введи то да сё</p>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <BaseInput
-          {...register('idInstance', { required: true })}
-          type='text'
-          placeholder='введите свой idInstance'
-          label='idInstance *'
-          disabled={isLoading}
-        />
-        {errors.idInstance && <p>Введите idInstance</p>}
-        <BaseInput
-          {...register('apiTokenInstance', {
-            required: true,
-          })}
-          type='text'
-          placeholder='введите свой apiTokenInstance'
-          label='apiTokenInstance *'
-          disabled={isLoading}
-        />
-        {errors.apiTokenInstance && <p>Введите apiTokenInstance</p>}
-        {error && error}
+        <div className={styles['input-wrapper']}>
+          <BaseInput
+            {...register('idInstance', { required: true })}
+            type='text'
+            placeholder='введите свой idInstance'
+            label='idInstance *'
+            disabled={isLoading}
+          />
+          {errors.idInstance && <p>Введите idInstance</p>}
+        </div>
+        <div className={styles['input-wrapper']}>
+          <BaseInput
+            {...register('apiTokenInstance', {
+              required: true,
+            })}
+            type='text'
+            placeholder='введите свой apiTokenInstance'
+            label='apiTokenInstance *'
+            disabled={isLoading}
+          />
+          {errors.apiTokenInstance && <p>Введите apiTokenInstance</p>}
+          {error && error}
+        </div>
         <BaseButton type='submit' disabled={isLoading}>
           авторизоваться
         </BaseButton>

@@ -1,15 +1,16 @@
 import { forwardRef } from 'react';
+import styles from './BaseInput.module.scss';
 
 type InputProps = {
   label?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const BaseInput = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, ...props }, ref) => {
+  ({ label, className, ...props }, ref) => {
     return (
-      <label>
-        {label && <p>{label}</p>}
-        <input ref={ref} {...props} />
+      <label className={className}>
+        {label && <p className={styles.label}>{label}</p>}
+        <input ref={ref} {...props} className={styles.input} />
       </label>
     );
   },
