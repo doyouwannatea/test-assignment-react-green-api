@@ -54,8 +54,7 @@ export default function AuthPage() {
 
   return (
     <div>
-      <h2>Добро пожаловать!</h2>
-      <p className={styles.subtitle}>Пожалуйста, введи то да сё</p>
+      <h2 className={styles.title}>Добро пожаловать!</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles['input-wrapper']}>
           <BaseInput
