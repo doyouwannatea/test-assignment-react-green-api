@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '@/context/auth-context/AuthContext';
 import BaseButton from '../BaseButton';
-import { routeLocations } from '@/router/routes';
+import { RouteLocation } from '@/router/routes';
 import styles from './AppHeader.module.scss';
 
 export default function AppHeader() {
@@ -9,7 +9,7 @@ export default function AppHeader() {
 
   return (
     <header className={styles.header}>
-      <Link className={styles.logo} to={routeLocations.homePageLocation}>
+      <Link className={styles.logo} to={RouteLocation.homePage}>
         WhatsAPPP
       </Link>
       {authContext.data && (

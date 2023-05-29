@@ -5,7 +5,7 @@ import BaseButton from '@/components/BaseButton';
 import BaseInput from '@/components/BaseInput';
 import { useAuthContext } from '@/context/auth-context/AuthContext';
 import useCheckAuthMutation from '@/hooks/useCheckAuthMutation';
-import { routeLocations } from '@/router/routes';
+import { RouteLocation } from '@/router/routes';
 import styles from './AuthPage.module.scss';
 
 type AuthFormValues = {
@@ -27,7 +27,7 @@ export default function AuthPage() {
   const { mutate, isLoading } = useCheckAuthMutation({
     onSuccess: (isChecked) => {
       if (isChecked) {
-        navigate(routeLocations.homePageLocation);
+        navigate(RouteLocation.homePage);
         return;
       }
       onError();

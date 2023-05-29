@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { routeLocations } from '@/router/routes';
+import { RouteLocation } from '@/router/routes';
 import { useAuthContext } from '@/context/auth-context/AuthContext';
 
 export const useWatchAuth = () => {
@@ -8,6 +8,6 @@ export const useWatchAuth = () => {
   const { data: authData } = useAuthContext();
 
   useEffect(() => {
-    if (!authData) navigate(routeLocations.authPageLocation);
+    if (!authData) navigate(RouteLocation.authPage);
   }, [authData, navigate]);
 };

@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { classNamesFunc } from 'classnames-generics';
-import { routeLocations } from '@/router/routes';
+import { RouteLocation } from '@/router/routes';
 import { Link } from 'react-router-dom';
 import BaseInput from '../BaseInput';
 import styles from './ContactList.module.scss';
@@ -60,7 +60,7 @@ export default function ContactList({
               className={classNames(styles['contact-link'], {
                 [styles['active-link']]: openedContact === contact,
               })}
-              to={routeLocations.getChatPageLocation(contact)}
+              to={RouteLocation.getChatPage(contact)}
             >
               {contact}
             </Link>
